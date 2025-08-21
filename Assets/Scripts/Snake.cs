@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Runtime.InteropServices;
 
 public class Snake : MonoBehaviour
 {
@@ -30,6 +31,19 @@ public class Snake : MonoBehaviour
     [SerializeField] List<Sprite> peles;
     [SerializeField] Sprite corpo_curva;
     [SerializeField] GameObject corpo_modelo;
+
+    #region WebGL is on mobile check
+    [DllImport("__Internal")]
+    private static extern bool IsMobile();
+
+    public bool isMobile(){
+        #if !UNITY_EDITOR && UNITY_WEBGL
+            return IsMobile();
+        #endif
+        return false;
+    }
+    #endregion
+
 
     void Start()
     {
