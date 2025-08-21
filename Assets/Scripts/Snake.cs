@@ -12,6 +12,7 @@ public class Snake : MonoBehaviour
     [SerializeField] int questaoAtual = 0;
     [SerializeField] Text UIenunciado;
     [SerializeField] Text UIpontos;
+    [SerializeField] GameObject LOGO;
     [SerializeField] GameObject UIdicas;
     [SerializeField] GameObject gameOver;
     [SerializeField] Text UIgameover;
@@ -34,6 +35,11 @@ public class Snake : MonoBehaviour
     {
         Time.timeScale = 1; // Garantir que o jogo comece em velocidade normal
         trilhaSonora.Play();
+        LOGO.SetActive(true);
+        UIdicas.SetActive(false);
+        UIenunciado.text = "";
+        UIpontos.text = "0 Pontos";
+        pontos = 0;
         gameOver.SetActive(false);
         corpo = new List<Transform>();
         corpo.Add(transform);
@@ -43,17 +49,28 @@ public class Snake : MonoBehaviour
 
     void Update()
     {
-        float axisX = Input.GetAxis("Horizontal");
-        float axisY = Input.GetAxis("Vertical");
+        if (LOGO.activeSelf)
+        {
+            if (Input.anyKeyDown)
+            {
+                LOGO.SetActive(false);
+            }
+            return;
+        }
+        else
+        {
+            float axisX = Input.GetAxis("Horizontal");
+            float axisY = Input.GetAxis("Vertical");
 
-        int posX = Mathf.RoundToInt(axisX);
-        int posY = Mathf.RoundToInt(axisY);
+            int posX = Mathf.RoundToInt(axisX);
+            int posY = Mathf.RoundToInt(axisY);
 
-        if (posX != 0) direction = Vector2.right * posX;
-        if (posY != 0) direction = Vector2.up * posY;
+            if (posX != 0) direction = Vector2.right * posX;
+            if (posY != 0) direction = Vector2.up * posY;
 
-        UIenunciado.text = questoes[questaoAtual].pergunta;
-        UIpontos.text = pontos + " Pontos";
+            UIenunciado.text = questoes[questaoAtual].pergunta;
+            UIpontos.text = pontos + " Pontos";
+        }
     }
 
     void FixedUpdate()
