@@ -13,7 +13,9 @@ public class Snake : MonoBehaviour
     [SerializeField] int questaoAtual = 0;
     [SerializeField] Text UIenunciado;
     [SerializeField] Text UIpontos;
+    [SerializeField] GameObject MobileHUD;
     [SerializeField] GameObject LOGO;
+    [SerializeField] Text texto_inicio;
     [SerializeField] GameObject UIdicas;
     [SerializeField] GameObject gameOver;
     [SerializeField] Text UIgameover;
@@ -51,6 +53,7 @@ public class Snake : MonoBehaviour
         trilhaSonora.Play();
         LOGO.SetActive(true);
         UIdicas.SetActive(false);
+        MobileHUD.SetActive(false);
         UIenunciado.text = "";
         UIpontos.text = "0 Pontos";
         pontos = 0;
@@ -59,6 +62,18 @@ public class Snake : MonoBehaviour
         corpo.Add(transform);
         questaoAtual = UnityEngine.Random.Range(0, questoes.Count);
         UIenunciado.text = questoes[questaoAtual].pergunta;
+        if (isMobile())texto_inicio.text = "Toque para iniciar";
+        else texto_inicio.text = "Pressione qualquer tecla para iniciar";
+    }
+
+    public void Jogar()
+    {
+        if (LOGO.activeSelf)
+        {
+            LOGO.SetActive(false);
+            if(isMobile()) MobileHUD.SetActive(true);
+            else MobileHUD.SetActive(false);
+         }
     }
 
     void Update()
