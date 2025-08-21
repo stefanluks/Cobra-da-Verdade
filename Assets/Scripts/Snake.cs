@@ -105,6 +105,18 @@ public class Snake : MonoBehaviour
         else if (direction.x < 0) transform.eulerAngles = new Vector3(0, 0, 180);
 
         transform.position = new Vector2(posX + direction.x, posY + direction.y);
+            // Verifica colisão com o próprio corpo
+            for (int i = 1; i < corpo.Count; i++)
+            {
+                if (transform.position == corpo[i].position)
+                {
+                    direction = Vector2.zero; // Parar a cobra
+                    UIgameover.text = "Você fez " + pontos + " pontos";
+                    gameOver.SetActive(true);
+                    Time.timeScale = 0; // Pausar o jogo
+                    break;
+                }
+            }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
