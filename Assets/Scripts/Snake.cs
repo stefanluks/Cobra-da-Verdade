@@ -27,6 +27,7 @@ public class Snake : MonoBehaviour
     [Header("Configurações da Cobra")]
     [SerializeField] int pontos = 0;
     [SerializeField] Vector2 direction;
+    private Vector2 nextDirection;
     [SerializeField] List<Transform> corpo;
     [SerializeField] Sprite cabeca;
     [SerializeField] Sprite rabo;
@@ -58,12 +59,14 @@ public class Snake : MonoBehaviour
         UIpontos.text = "0 Pontos";
         pontos = 0;
         gameOver.SetActive(false);
-        corpo = new List<Transform>();
-        corpo.Add(transform);
-        questaoAtual = UnityEngine.Random.Range(0, questoes.Count);
-        UIenunciado.text = questoes[questaoAtual].pergunta;
-        if (isMobile())texto_inicio.text = "Toque para iniciar";
-        else texto_inicio.text = "Pressione qualquer tecla para iniciar";
+    corpo = new List<Transform>();
+    corpo.Add(transform);
+    questaoAtual = UnityEngine.Random.Range(0, questoes.Count);
+    UIenunciado.text = questoes[questaoAtual].pergunta;
+    if (isMobile())texto_inicio.text = "Toque para iniciar";
+    else texto_inicio.text = "Pressione qualquer tecla para iniciar";
+    direction = Vector2.zero;
+    nextDirection = Vector2.zero;
     }
 
     public void Jogar()
@@ -73,7 +76,10 @@ public class Snake : MonoBehaviour
             LOGO.SetActive(false);
             if(isMobile()) MobileHUD.SetActive(true);
             else MobileHUD.SetActive(false);
-         }
+            // Começar movimento para a direita ao iniciar
+            direction = Vector2.right;
+            nextDirection = Vector2.right;
+        }
     }
 
     void Update()
@@ -96,8 +102,22 @@ public class Snake : MonoBehaviour
             int posX = Mathf.RoundToInt(axisX);
             int posY = Mathf.RoundToInt(axisY);
 
-            if (posX != 0) direction = Vector2.right * posX;
-            if (posY != 0) direction = Vector2.up * posY;
+            if (posX != 0)
+            {
+                Vector2 novaDirecao = Vector2.right * posX;
+                if (direction == Vector2.zero || novaDirecao != -direction)
+                {
+                    nextDirection = novaDirecao;
+                }
+            }
+            else if (posY != 0)
+            {
+                Vector2 novaDirecao = Vector2.up * posY;
+                if (direction == Vector2.zero || novaDirecao != -direction)
+                {
+                    nextDirection = novaDirecao;
+                }
+            }
 
             UIenunciado.text = questoes[questaoAtual].pergunta;
             UIpontos.text = pontos + " Pontos";
@@ -120,9 +140,10 @@ public class Snake : MonoBehaviour
                 corpo[i].GetComponent<SpriteRenderer>().sprite = corpo_curva;
             }
         }
-        corpo[0].GetComponent<SpriteRenderer>().sprite = cabeca;
-        if (corpo.Count > 1) corpo[corpo.Count - 1].GetComponent<SpriteRenderer>().sprite = rabo;
-        Movimento();
+    corpo[0].GetComponent<SpriteRenderer>().sprite = cabeca;
+    if (corpo.Count > 1) corpo[corpo.Count - 1].GetComponent<SpriteRenderer>().sprite = rabo;
+    direction = nextDirection;
+    Movimento();
     }
 
     void Movimento()
@@ -199,6 +220,26 @@ public class Snake : MonoBehaviour
     public void DicasControles()
     {
         UIdicas.SetActive(!UIdicas.activeSelf);
+    }
+
+    public void Direita()
+    {
+    if (direction != Vector2.left) nextDirection = Vector2.right;
+    }
+
+    public void Esquerda()
+    {
+    if (direction != Vector2.right) nextDirection = Vector2.left;
+    }
+
+    public void Cima()
+    {
+    if (direction != Vector2.down) nextDirection = Vector2.up;
+    }
+
+    public void Baixo()
+    {
+    if (direction != Vector2.up) nextDirection = Vector2.down;
     }
 
     public void Restart()
