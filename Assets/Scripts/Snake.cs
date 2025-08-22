@@ -83,6 +83,8 @@ public class Snake : MonoBehaviour
             if (Input.anyKeyDown)
             {
                 LOGO.SetActive(false);
+                if (isMobile()) MobileHUD.SetActive(true);
+                else MobileHUD.SetActive(false);
             }
             return;
         }

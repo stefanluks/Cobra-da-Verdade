@@ -2292,7 +2292,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -205.43701, y: -45.799988}
+  m_AnchoredPosition: {x: -205.43701, y: -45.80005}
   m_SizeDelta: {x: 147.8739, y: 49.517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &866092373
@@ -2751,7 +2751,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Intru\xE7\xF5es"
+  m_Text: "Instru\xE7\xF5es"
 --- !u!222 &1228511657
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2796,7 +2796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -365.5, y: -45.799988}
+  m_AnchoredPosition: {x: -365.5, y: -45.80005}
   m_SizeDelta: {x: 147.8739, y: 49.517}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1255318900
@@ -3955,8 +3955,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "As regras do jogo se baseiam na algbra booleana, seguindo as regras dos
-    tr\xEAs operadores l\xF3gicos:\n\nNOT = Inverte o valor l\xF3gico.\nexemplo:
+  m_Text: "As regras do jogo se baseiam na \xE1lgebra booleana, seguindo as regras
+    dos tr\xEAs operadores l\xF3gicos:\n\nNOT = Inverte o valor l\xF3gico.\nexemplo:
     NOT V = F\n\nAND = Sa\xEDda s\xF3 \xE9 verdade quando os dois s\xE3o verdades.\nexemplo:
     V AND V = V\n\nOR = Sa\xEDda \xE9 verdadeira sempre que uma entrada for verdadeira.\nexemplo:
     V OR F = V"
